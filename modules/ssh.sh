@@ -1,0 +1,4 @@
+
+restart() {
+    systemctl restart ssh
+}

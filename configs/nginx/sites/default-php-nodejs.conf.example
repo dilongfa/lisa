@@ -1,0 +1,34 @@
+
+server {
+    listen 80;
+
+    server_name PROJECTNAME.vm;
+    root /home/zido/projects/PROJECTNAME.vm;
+
+    index index.html index.php;
+    charset utf-8;
+
+    location / {
+        try_files $uri $uri/ /index.php$is_args$args;
+    }
+
+    location ~ \.php$ {
+        try_files $uri =404;
+        fastcgi_pass 127.0.0.1:9000;
+        fastcgi_index index.php;
+        include /etc/nginx/fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    }
+
+    location /nodedata/ {
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_set_header X-NginX-Proxy true;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_pass http://127.0.0.1:3000; ###Using the unique port number per nodejs application or domain
+        proxy_redirect off;
+    }
+}

@@ -1,0 +1,14 @@
+set historylog
+#set linenumbers
+set locking
+set morespace
+set smooth
+set softwrap
+set suspend
+set tabsize 4
+set tabstospaces
+set numbercolor white
+set keycolor green
+set functioncolor yellow
+
+include "/usr/share/nano/*.nanorc"

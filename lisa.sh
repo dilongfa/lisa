@@ -1,26 +1,21 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-#declare -A LISA
-LS_DIR=$(dirname $(readlink -f $0))
-LS_SCRIPT_DIR="$LS_DIR/scripts"
+DIR=$(dirname $(readlink -f $0))
+MODULE_DIR="$DIR/modules"
+CONFIG_DIR="$DIR/configs"
+NGINX_VHOST_DIR="/etc/nginx/conf.d"
+HOME_PROJECT_DIR="/home/long/projects"
 
-source $LS_SCRIPT_DIR/util.sh
+source "$DIR/util.sh"
 
-HANDLE="$1"
-ACTION="$2"
-
-if [ -z $HANDLE ]; then
-    error 'Please enter script name'
-elif [ ! -f "$LS_SCRIPT_DIR/$HANDLE.sh" ]; then
-    error "The [$HANDLE] script not found"
+if [ "$#" -lt 2 ]; then
+    info "Usage: [sudo] lisa {HANDLE} {ACTION} [OPTIONS]"
 fi
 
-source $LS_SCRIPT_DIR/$HANDLE.sh
+source "$MODULE_DIR/$1.sh"
 
-if [ -z $ACTION ]; then
-    error "Please enter a action"
-elif [ -z $(type -t $ACTION) ]; then
-    error "The function [$ACTION] does not exist"
+if [ "$(type -t $2)" != "function" ]; then
+    error "The [$2] action does not exist in [$1]"
 fi
 
-$ACTION "${@:3}"
+$2 "${@:2}"

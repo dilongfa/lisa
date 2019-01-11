@@ -1,4 +1,27 @@
-Lisa - [Li]nux [S]ystem [A]dministrator
+# Lisa - [Li]nux [S]ystem [A]dministration
 ===
 
-This is a shell script writes for developers does not have experiences about linux server management
+I will be convert this to python in the near future because bash
+
+## Requirement
+git
+nano
+sudo
+
+## Setting up
+
+```
+git clone https://github.com/dilongfa/lisa.git
+cd lisa
+chmod +x lisa.sh
+```
+
+### Installing
+```
+sudo ln -s $PWD/lisa.sh /usr/local/bin/lisa 
+```
+
+### Uninstalling
+```
+sudo unlink /usr/local/bin/lisa
+```
